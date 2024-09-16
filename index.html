@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta content="HLS Play" property="og:title"/>
+    <meta content="https://play.ibc.my.id/MP4" property="og:url"/>
+    <meta content="HLS Play" property="og:site_name"/>
+    <meta content="website" property="og:type"/>
+    <meta content="Play your HLS vod and live." property="og:description"/>
+    <meta content="HLS Play" property="og:image:alt"/>
+    <meta content="" property="og:image"/>
+    <meta content="Indonesia" name="geo.placename"/>
+    <meta content="IBC" name="Author"/>
+    <meta content="general" name="rating"/>
+    <meta content="general" name="geo.country"/>
+    <meta content="id_ID" property="og:locale"/>
+    <meta content="en_US" property="og:locale:alternate"/>
+    <meta content="en_GB" property="og:locale:alternate"/>
+    <meta content="index, follow" name="robots"/>
+    <meta content="index, follow" name="googlebot"/>
+    <meta content="index, follow" name="googlemediabot"/>
+    <meta content="index, follow" name="slurp"/>
+    <meta content="index, follow" name="Baiduspider"/>
+    <meta content="index, follow" name="AlexaBot"/>
+    <meta content="index, follow" name="Yandex"/>
+    <meta content="index, follow" name="ArchitextSpider"/>
+    <meta content="index, follow" name="msnbot-media/1.0"/>
+    <meta content="index, follow" name="MSNPTC"/>
+    <meta content="index, follow" name="MSNBot"/>
+    <meta content="index, follow" name="bingbot"/>
+    <style>
+        .vjs-brand-container-link{position:relative;top:7px}
+        .vjs-icon-cog::before {font-size: 17px}
+    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>HLS PLAY</title>
+
+   
+    <link href="https://cdn.jsdelivr.net/npm/video.js@8.17.4/dist/video-js.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/videojs-http-source-selector@1.1.6/dist/videojs-http-source-selector.min.css" rel="stylesheet"/>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/videojs-brand@0.0.4/dist/videojs-brand.min.css" rel="stylesheet"/> -->
+</head>
+<body>
+    <div class="md:container mx-auto py-5 px-3 font-sans">
+        <video id="sa-dev" width="640" height="360" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls poster autoplay>
+            <source src="#" type='application/x-mpegURL'>
+        </video>
+        <div class="flex py-5 gap-3">
+            <input class="w-full rounded-md px-3 bg-slate-200 focus:outline-offset-0 focus:bg-inherit focus:outline-0" type="url" id="streamURL" value="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8" size="65">
+            <button class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:md:animate-pulse px-6 py-2 rounded-lg text-slate-100 font-bold" onClick="loadStream()">Play</button>
+        </div>
+    </div>
+    
+    <script src='https://cdn.jsdelivr.net/npm/video.js@7.21.6/dist/video.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/gh/sadevID/vidJS@main/brands-ibc.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/videojs-brand@0.0.4/dist/videojs-brand.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-quality-levels@2.1.0/dist/videojs-contrib-quality-levels.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-http-source-selector@1.1.6/dist/videojs-http-source-selector.min.js"></script>
+
+    
+    <script>
+      (function(window, videojs) {
+        var player = window.player = videojs('sa-dev');
+        player.httpSourceSelector();
+        //Load stream from query param /?stream=MYHLS_STREAM_URL_GOES_HERE
+        var queryParamStream = getQueryString('stream');
+        if(queryParamStream !== null)
+        {
+          document.getElementById("streamURL").value = queryParamStream;
+          player.src({ type: "application/x-mpegURL", src: document.getElementById("streamURL").value });
+        }
+      }(window, window.videojs));
+  
+      function loadStream(){
+        console.log("Change stream to : "+document.getElementById("streamURL").value );
+        player.src({ type: "application/x-mpegURL", src: document.getElementById("streamURL").value });
+      }
+      function getQueryString ( field, url )
+    {
+      var href = url ? url : window.location.href;
+      var reg = new RegExp( '[?&]' + field + '=([^]*)', 'i' );
+      var string = reg.exec(href);
+      return string ? string[1] : null;
+    }
+    </script>
+</body>
+</html>
